@@ -155,3 +155,76 @@ server.post('/sendPost', function (req, res, next) {
       })
     })
 
+
+	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+                      // Update a Staff Record by their id
+	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+      server.put('/staffs/:id', function (req, res, next) {
+      
+        // Make sure name is defined
+        if (req.params.name === undefined ) {
+          // If there are any errors, pass them to next in the correct format
+          return next(new restify.InvalidArgumentError('name must be supplied'))
+        }
+        if (req.params.age === undefined ) {
+          // If there are any errors, pass them to next in the correct format
+          return next(new restify.InvalidArgumentError('age must be supplied'))
+        }
+        
+        var newStaff = {
+              _id: req.params.id,
+              name: req.params.name, 
+              age: req.params.age
+          }
+        
+          // Update the user with the persistence engine
+          staffsSave.update(newStaff, function (error, staff) {
+      
+          // If there are any errors, pass them to next in the correct format
+          if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
+      
+          // Send a 200 OK response
+          res.send(200)
+        })
+      })
+      
+	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+                       // Delete staff record with the given id
+	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+server.del('/staffs/:id', function (req, res, next) {
+  
+    // Delete the user with the persistence engine
+    staffsSave.delete(req.params.id, function (error, staff) {
+  
+      // If there are any errors, pass them to next in the correct format
+      if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
+  
+      // Send a 200 OK response
+      res.send(200)
+    })
+  })
+  
+	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+                      // Delete all staff records in the system
+	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+server.get('/sendDelete', function (req, res, next) {
+  
+        console.log("sendDelete: received request..");
+
+        // Find every entity within the given collection
+
+        //staffsSave.delete({}, function (error, staff) {
+          
+
+        staffsSave = require('save')('staffs')
+
+        res.send("All Records Delete");
+    //    localStorage.clear();
+        
+      //    fs.truncate(filename, 0, function(){console.log('delete.')})
+
+ //      Send a 200 OK response
+       })
