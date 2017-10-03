@@ -1,0 +1,12 @@
+{
+    "name": "User-Api",
+    "version": "1.0.0",
+    "description": "REST API - Staffs”,
+    "dependencies": {
+        "restify": "4.1.1",
+        "save": "2.3.0"
+    },
+    "author": “Santhosh”,
+	"private": true,
+	"main": “Staff_Database.js"
+}
