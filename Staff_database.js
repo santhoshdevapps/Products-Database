@@ -128,4 +128,30 @@ server.post('/sendPost', function (req, res, next) {
 
        })
     })
+    
+	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+                      // Get a single user by their staff id
+	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+      server.get('/Staffs/:id', function (req, res, next) {
+
+        // Find a single user by their id within save
+        staffsSave.findOne({ _id: req.params.id }, function (error, staffs) {
+    
+          getRequestCounter++;
+          
+          console.log("Processed Request Counter -> sendGet : " + getRequestCounter + ", sendPost : " + postRespnseCounter);
+          
+        // If there are any errors, pass them to next in the correct format
+        if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
+    
+        if (staffs) {
+          // Send the user if no issues
+          res.send(staffs)
+        } else {
+          // Send 404 header if the user doesn't exist
+          res.send(404)
+        }
+      })
+    })
 
