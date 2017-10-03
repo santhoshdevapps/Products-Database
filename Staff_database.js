@@ -1,16 +1,8 @@
-/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	//  Name : Santhosh Damodharan
-	//     student Id : 300964037
-	//     File Name : Staff_database
-	//     Description : Created staffing database to handle multiple staffs at an organization
-	//     version : 1.0
-/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
 var SERVER_NAME = 'Staff-api'
 var PORT = 3000;
 var HOST = '127.0.0.1';
 
-var filename = 'Staff_Database.json';
+var filename = 'Data_Storage.json';
 var fs = require('fs');
 
 var data = fs.readFileSync(filename);

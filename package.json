@@ -1,12 +1,27 @@
 {
-    "name": "User-Api",
-    "version": "1.0.0",
-    "description": "REST API - Staffs”,
-    "dependencies": {
-        "restify": "4.1.1",
-        "save": "2.3.0"
-    },
-    "author": “Santhosh”,
-	"private": true,
-	"main": “Staff_Database.js"
+  "name": "user-api",
+  "version": "1.0.0",
+  "description": "REST API - Staffs",
+  "main": "Staff_Database.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/santhoshdevapps/Staffing-Database.git"
+  },
+  "keywords": [
+    "Staffs"
+  ],
+  "author": "Santhosh Damodharan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/santhoshdevapps/Staffing-Database/issues"
+  },
+  "homepage": "https://github.com/santhoshdevapps/Staffing-Database#readme",
+  "dependencies": {
+    "node": "^8.3.0",
+    "restify": "^6.0.1",
+    "save": "^2.3.1"
+  }
 }
