@@ -1,3 +1,11 @@
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	//  Name : Santhosh Damodharan
+	//     student Id : 300964037
+	//     File Name : Staff_database
+	//     Description : Created staffing database to handle multiple staffs at an organization
+	//     version : 1.0
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
 var SERVER_NAME = 'Staff-api'
 var PORT = 3000;
 var HOST = '127.0.0.1';
@@ -44,9 +52,9 @@ server
 .use(restify.bodyParser())
 
 
-//------------------------------------------------------------------------------//
-                       // Create a new staff record
-//------------------------------------------------------------------------------//
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+                       // Created a new staff record
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 server.post('/sendPost', function (req, res, next) {
   
       console.log("sendPost: sending response...");
@@ -91,4 +99,33 @@ server.post('/sendPost', function (req, res, next) {
       res.send(201, staff)
     })
   })
+
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+                      // Get all student records in the system
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+        server.get('/sendGet', function (req, res, next) {
+  
+        console.log("sendGet: received request..");
+
+        //Request counter for endpoint sendGet 
+        getRequestCounter++;
+        
+        console.log("Processed Request Counter -> sendGet : " + getRequestCounter + ", sendPost : " + postRespnseCounter);
+          
+
+        // Find every entity within the given collection
+        staffsSave.find({}, function (error, staffs) {
+
+        // Return all of the Staffs in the system
+        //res.send(staffs)
+
+
+        console.log(staff_data_JSON);
+
+         res.send(staff_data_JSON);
+
+       })
+    })
 
