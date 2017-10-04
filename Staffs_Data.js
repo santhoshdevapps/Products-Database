@@ -6,15 +6,9 @@
 	//     version : 1.0
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-var SERVER_NAME = 'Staff-api'
+var SERVER_NAME = 'Product-api'
 var PORT = 8000;
 var HOST = '127.0.0.1';
-
-var filename = 'Database_Storage.json';
-var fs = require('fs');
-
-var data = fs.readFileSync(filename);
-var staff_data_JSON = JSON.parse(data);
 
 
 var getRequestCounter = 0;
@@ -24,7 +18,7 @@ var postRespnseCounter = 0;
 var restify = require('restify')
 
   // Get a persistence engine for the users
-  , staffsSave = require('save')('staffs')
+  , productsSave = require('save')('products')
 
   // Create the restify server
   , server = restify.createServer({ name: SERVER_NAME})
@@ -33,16 +27,10 @@ var restify = require('restify')
   //console.log('Server %s listening at %s', server.name, server.url)
   console.log("Server is listening on: " + HOST + ":" + PORT);
   console.log("End Points :");
-  console.log( HOST + ":" + PORT +"/sendGet   method: GET");
-  console.log( HOST + ":" + PORT +"/sendPost   method: POST");
-  console.log( HOST + ":" + PORT +"/sendDelete   method: DELETE");
-  
-  console.log(staff_data_JSON);
-
-  console.log('Resources:')
-  console.log(' /staffs')
-  console.log(' /staffs/:id')  
-})
+  console.log( HOST + ":" + PORT +"/products   method: GET");
+  console.log( HOST + ":" + PORT +"/products   method: POST");
+  console.log( HOST + ":" + PORT +"/products   method: DELETE");
+  })
 
 server
 // Allow the use of POST
@@ -54,50 +42,41 @@ server
 
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-                       // Created a new staff record
+                       // Create a new product
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-server.post('/sendPost', function (req, res, next) {
+server.post('/products', function (req, res, next) {
   
-      console.log("sendPost: sending response...");
+      console.log("productPost: sending response...");
     
-      //Request counter for sendPostrequest 
+      //Request counter for productPostrequest 
       postRespnseCounter++;
       
-      console.log("Processed Request Counter -> sendGet : " + getRequestCounter + ", sendPost : " + postRespnseCounter);
+      console.log("Processed Request Counter -> productGet : " + getRequestCounter + ", productPost : " + postRespnseCounter);
         
     // Make sure name is defined
     if (req.params.name === undefined ) {
       // If there are any errors, pass them to next in the correct format
       return next(new restify.InvalidArgumentError('name must be supplied'))
     }
-    if (req.params.age === undefined ) {
+    if (req.params.price === undefined ) {
       // If there are any errors, pass them to next in the correct format
-      return next(new restify.InvalidArgumentError('age must be supplied'))
+      return next(new restify.InvalidArgumentError('price must be supplied'))
     }
-    var newStaff = { 
+    var newProduct = { 
           name: req.params.name, 
-          age: req.params.age,
+          price: req.params.price,
           _id: req.params._id
       }
   
     // Create the user using the persistence engine
-    staffsSave.create( newStaff, function (error, staff) {
-  
-      //Writing data in JSON file
+    productsSave.create( newProduct, function (error, product) {
 
-        staff_data_JSON[req.params.name] = req.params.age;
-      
-        var write_data = JSON.stringify(staff_data_JSON,null,2);
-
-        fs.writeFile(filename,write_data,finished);
-
-        function finished(err) {console.log('Data stored in json file');}
 
       // If there are any errors, pass them to next in the correct format
       if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
   
       // Send the user if no issues
-      res.send(201, staff)
+      res.send(201, product)
     })
   })
 
@@ -108,26 +87,26 @@ server.post('/sendPost', function (req, res, next) {
                       // Get all student records in the system
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-        server.get('/sendGet', function (req, res, next) {
+        server.get('/products', function (req, res, next) {
   
-        console.log("sendGet: received request..");
+        console.log("productGet: received request..");
 
         //Request counter for endpoint sendGet 
         getRequestCounter++;
         
-        console.log("Processed Request Counter -> sendGet : " + getRequestCounter + ", sendPost : " + postRespnseCounter);
+        console.log("Processed Request Counter -> productGet : " + getRequestCounter + ", productPost : " + postRespnseCounter);
           
 
         // Find every entity within the given collection
-        staffsSave.find({}, function (error, staffs) {
+        productsSave.find({}, function (error, products) {
 
         // Return all of the Staffs in the system
         //res.send(staffs)
 
 
-        console.log(staff_data_JSON);
+        console.log(products);
 
-         res.send(staff_data_JSON);
+         res.send(products);
 
        })
     })
@@ -136,21 +115,21 @@ server.post('/sendPost', function (req, res, next) {
                       // Get a single user by their staff id
 	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-      server.get('/Staffs/:id', function (req, res, next) {
+      server.get('/products/:id', function (req, res, next) {
 
         // Find a single user by their id within save
-        staffsSave.findOne({ _id: req.params.id }, function (error, staffs) {
+        productsSave.findOne({ _id: req.params.id }, function (error, products) {
     
           getRequestCounter++;
           
-          console.log("Processed Request Counter -> sendGet : " + getRequestCounter + ", sendPost : " + postRespnseCounter);
+          console.log("Processed Request Counter -> productGet : " + getRequestCounter + ", productPost : " + postRespnseCounter);
           
         // If there are any errors, pass them to next in the correct format
         if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
     
-        if (staffs) {
+        if (products) {
           // Send the user if no issues
-          res.send(staffs)
+          res.send(products)
         } else {
           // Send 404 header if the user doesn't exist
           res.send(404)
@@ -160,46 +139,13 @@ server.post('/sendPost', function (req, res, next) {
 
 
 	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-                      // Update a Staff Record by their id
-	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-      server.put('/staffs/:id', function (req, res, next) {
-      
-        // Make sure name is defined
-        if (req.params.name === undefined ) {
-          // If there are any errors, pass them to next in the correct format
-          return next(new restify.InvalidArgumentError('name must be supplied'))
-        }
-        if (req.params.age === undefined ) {
-          // If there are any errors, pass them to next in the correct format
-          return next(new restify.InvalidArgumentError('age must be supplied'))
-        }
-        
-        var newStaff = {
-              _id: req.params.id,
-              name: req.params.name, 
-              age: req.params.age
-          }
-        
-          // Update the user with the persistence engine
-          staffsSave.update(newStaff, function (error, staff) {
-      
-          // If there are any errors, pass them to next in the correct format
-          if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
-      
-          // Send a 200 OK response
-          res.send(200)
-        })
-      })
-      
-	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
                        // Delete staff record with the given id
 	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-server.del('/staffs/:id', function (req, res, next) {
+server.del('/products/:id', function (req, res, next) {
   
     // Delete the user with the persistence engine
-    staffsSave.delete(req.params.id, function (error, staff) {
+    productsSave.delete(req.params.id, function (error, product) {
   
       // If there are any errors, pass them to next in the correct format
       if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
@@ -213,16 +159,16 @@ server.del('/staffs/:id', function (req, res, next) {
                       // Delete all staff records in the system
 	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-server.get('/sendDelete', function (req, res, next) {
+server.del('/products', function (req, res, next) {
   
-        console.log("sendDelete: received request..");
+        console.log("productDelete: received request..");
 
         // Find every entity within the given collection
 
-        //staffsSave.delete({}, function (error, staff) {
+        //productsSave.delete({}, function (error, product) {
           
 
-        staffsSave = require('save')('staffs')
+        productsSave = require('save')('products')
 
         res.send("All Records Delete");
     //    localStorage.clear();
