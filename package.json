@@ -1,12 +1,13 @@
 {
   "name": "user-api",
   "version": "1.0.0",
-  "description": "REST API - Staffs",
-  "main": "Staffs_Data.js",
+  "description": "REST API - Products”,
+  "main": “Products_Data.js",
   "dependencies": {
     "node": "^8.3.0",
-    "restify": "^4.1.1",
-    "save": "^2.3.0"
+    "products": "^3.0.3",
+    "restify": "^4.3.1",
+    "save": "^2.3.1"
   },
   "devDependencies": {},
   "scripts": {
@@ -14,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/santhoshdevapps/Staffing-Database.git"
+    "url": "git+https://github.com/santhoshdevapps/Products-Database.git"
   },
   "keywords": [
     "Staffs"
@@ -22,7 +23,7 @@
   "author": "Santhosh Damodharan",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/santhoshdevapps/Staffing-Database/issues"
+    "url": "https://github.com/santhoshdevapps/Products-Database/issues"
   },
-  "homepage": "https://github.com/santhoshdevapps/Staffing-Database#readme"
+  "homepage": "https://github.com/santhoshdevapps/Products-Database#readme"
 }
