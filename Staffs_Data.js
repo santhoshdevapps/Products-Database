@@ -1,8 +1,8 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	//  Name : Santhosh Damodharan
 	//     student Id : 300964037
-	//     File Name : Staff_database
-	//     Description : Created staffing database to handle multiple staffs at an organization
+	//     File Name : Product_database
+	//     Description : Created product database to store & maintain all the products in the store
 	//     version : 1.0
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
@@ -81,10 +81,8 @@ server.post('/products', function (req, res, next) {
   })
 
 
-
-
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-                      // Get all student records in the system
+                      // Get all product records in the system
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
         server.get('/products', function (req, res, next) {
@@ -112,7 +110,7 @@ server.post('/products', function (req, res, next) {
     })
     
 	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-                      // Get a single user by their staff id
+                      // Get a single product by their product id
 	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
       server.get('/products/:id', function (req, res, next) {
@@ -139,7 +137,7 @@ server.post('/products', function (req, res, next) {
 
 
 	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-                       // Delete staff record with the given id
+                       // Delete product record with the given id
 	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 server.del('/products/:id', function (req, res, next) {
@@ -156,7 +154,7 @@ server.del('/products/:id', function (req, res, next) {
   })
   
 	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-                      // Delete all staff records in the system
+                      // Delete all product records in the system
 	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 server.del('/products', function (req, res, next) {
